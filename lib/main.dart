@@ -1,0 +1,41 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:nayepankh_app/firebase_options.dart';
+import 'package:nayepankh_app/helpers/shared_preferences.dart';
+import 'package:nayepankh_app/screens/auth_screen.dart';
+import 'package:nayepankh_app/screens/home_screen.dart';
+
+final kColorScheme = ColorScheme.fromSeed(seedColor: Colors.blue);
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await CustomSharedPreferences.init();
+
+  runApp(
+    const MyApp(),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData().copyWith(colorScheme: kColorScheme),
+      darkTheme: ThemeData().copyWith(colorScheme: kColorScheme),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, snapshot) {
+          return Container(
+            child: snapshot.hasData ? const HomeScreen() : const AuthScreen(),
+          );
+        },
+      ),
+    );
+  }
+}

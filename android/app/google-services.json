@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "947374176924",
+    "project_id": "nayepankh-app-300db",
+    "storage_bucket": "nayepankh-app-300db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947374176924:android:a99cae6b067a10ca44cb59",
+        "android_client_info": {
+          "package_name": "com.example.nayepankh_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJRQUIJHetijAeAiPelOAnpKhVB8lJWs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
