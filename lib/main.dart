@@ -8,26 +8,30 @@ import 'package:nayepankh_app/screens/home_screen.dart';
 
 final kColorScheme = ColorScheme.fromSeed(seedColor: Colors.blue);
 
+final themeData = ThemeData().copyWith(
+  colorScheme: kColorScheme,
+  // bottomNavigationBarTheme: const BottomNavigationBarThemeData().copyWith(
+  //   selectedItemColor: kColorScheme.secondaryContainer,
+  //   unselectedItemColor: kColorScheme.onSecondaryFixedVariant,
+  // ),
+);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await CustomSharedPreferences.init();
 
-  runApp(
-    const MyApp(),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-  });
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData().copyWith(colorScheme: kColorScheme),
-      darkTheme: ThemeData().copyWith(colorScheme: kColorScheme),
+      theme: themeData,
+      darkTheme: themeData,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapshot) {

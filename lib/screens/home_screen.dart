@@ -1,5 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nayepankh_app/helpers/auth_helper.dart';
+import 'package:nayepankh_app/helpers/shared_preferences.dart';
+import 'package:nayepankh_app/screens/admin_screen.dart';
+import 'package:nayepankh_app/screens/user_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,63 +18,42 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String username = "";
   bool isAdmin = false;
-  late SharedPreferences prefs;
+  SharedPreferences prefs = CustomSharedPreferences.instance;
+  late final theme = Theme.of(context);
+  var tabItems = [];
 
-  void loadPrefsData() async {
+  void navigate() {
+    isAdmin
+        ? Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (ctx) => const AdminScreen()),
+          )
+        : Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (ctx) => const UserScreen()),
+          );
+  }
+
+  void loadUserData() async {
     try {
-      prefs = await SharedPreferences.getInstance();
-      setState(() {
-        username = prefs.getString('username') ?? 'Unknown';
-        isAdmin = prefs.getBool('isAdmin') ?? false;
-      });
+      final userMap = await AuthHelper.getUserCredentials();
+      username = userMap['username'];
+      isAdmin = userMap['isAdmin'];
+
+      navigate();
     } catch (e) {
-      print('$e');
+      if (kDebugMode) print('$e');
     }
   }
 
   @override
   void initState() {
-    loadPrefsData();
+    loadUserData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            Text(
-              'Logged in',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-              ),
-            ),
-            Text(
-              'isAdmin: $isAdmin',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-              ),
-            ),
-            Text(
-              'username: $username',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                prefs.remove('username');
-                prefs.remove('isAdmin');
-                FirebaseAuth.instance.signOut();
-              },
-              child: const Text('Logout'),
-            ),
-          ],
-        ),
-      ),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
