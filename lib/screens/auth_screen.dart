@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nayepankh_app/screens/home_screen.dart';
 import 'package:nayepankh_app/widgets/auth_form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/firestore_helper.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -15,7 +18,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  final _auth = FirebaseAuth.instance;
+  final _auth = FirestoreHelper.auth;
   final _fireStore = FirebaseFirestore.instance;
 
   late final scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -31,6 +34,10 @@ class _AuthScreenState extends State<AuthScreen> {
   }) async {
     UserCredential userCredential;
     final prefs = await SharedPreferences.getInstance();
+
+    void navigateIfStillMounted() {
+      if(mounted) Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+    }
 
     try {
       setState(() {
@@ -50,6 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
         await prefs.setString('username', userData.data()?['username']);
         await prefs.setBool('isAdmin', userData.data()?['isAdmin']);
         // print('username: ${userData.data()!['username']}, isAdmin:: ${userData.data()!['isAdmin']}');
+
       } else {
         //signup
         userCredential = await _auth.createUserWithEmailAndPassword(
@@ -94,6 +102,9 @@ class _AuthScreenState extends State<AuthScreen> {
       if (kDebugMode) {
         print('Error:: $error');
       }
+    }
+    finally {
+      navigateIfStillMounted();
     }
   }
 

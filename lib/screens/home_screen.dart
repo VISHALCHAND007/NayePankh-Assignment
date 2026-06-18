@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nayepankh_app/helpers/auth_helper.dart';
+import 'package:nayepankh_app/helpers/firestore_helper.dart';
 import 'package:nayepankh_app/helpers/shared_preferences.dart';
 import 'package:nayepankh_app/screens/admin_screen.dart';
 import 'package:nayepankh_app/screens/user_screen.dart';
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void loadUserData() async {
     try {
-      final userMap = await AuthHelper.getUserCredentials();
+      final userMap = await FirestoreHelper.getUserCredentials();
       username = userMap['username'];
       isAdmin = userMap['isAdmin'];
 

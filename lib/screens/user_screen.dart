@@ -13,21 +13,34 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   var selectedTabInd = 0;
 
+  void openDonationTab() {
+    setState(() {
+      selectedTabInd = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final tabItems = [
-      const BottomNavigationBarItem(icon: Icon(Icons.post_add), label: 'Home'),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.monitor_heart),
+        label: 'Home',
+      ),
       const BottomNavigationBarItem(
         icon: Icon(Icons.currency_rupee),
         label: 'Donate',
       ),
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.currency_rupee),
-        label: 'Profile',
-      ),
+      // const BottomNavigationBarItem(
+      //   icon: Icon(Icons.supervised_user_circle_outlined),
+      //   label: 'Profile',
+      // ),
     ];
 
-    final screens = [const HomeTab(), const DonateTab(), const ProfileTab()];
+    final screens = [
+      HomeTab(openDonateTab: openDonationTab),
+      const DonateTab(),
+      // const ProfileTab(),
+    ];
     return Scaffold(
       body: screens[selectedTabInd],
       bottomNavigationBar: BottomNavigationBar(

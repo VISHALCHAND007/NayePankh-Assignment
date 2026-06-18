@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nayepankh_app/screens/tabs/admin/donors_tab.dart';
 import 'package:nayepankh_app/screens/tabs/admin/post_tab.dart';
-import 'package:nayepankh_app/widgets/appbar/cutom_app_bar.dart';
+import 'package:nayepankh_app/widgets/appbar/custom_app_bar.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
@@ -15,7 +15,6 @@ class _AdminScreenState extends State<AdminScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final tabItems = [
       const BottomNavigationBarItem(icon: Icon(Icons.post_add), label: 'Post'),
       const BottomNavigationBarItem(

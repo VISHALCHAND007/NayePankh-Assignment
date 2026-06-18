@@ -2,19 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nayepankh_app/firebase_options.dart';
+import 'package:nayepankh_app/helpers/firestore_helper.dart';
 import 'package:nayepankh_app/helpers/shared_preferences.dart';
 import 'package:nayepankh_app/screens/auth_screen.dart';
 import 'package:nayepankh_app/screens/home_screen.dart';
+import 'package:nayepankh_app/widgets/auth_wrapper.dart';
 
-final kColorScheme = ColorScheme.fromSeed(seedColor: Colors.blue);
+final kColorScheme = ColorScheme.fromSeed(seedColor: Colors.lightBlue);
 
 final themeData = ThemeData().copyWith(
   colorScheme: kColorScheme,
-  // bottomNavigationBarTheme: const BottomNavigationBarThemeData().copyWith(
-  //   selectedItemColor: kColorScheme.secondaryContainer,
-  //   unselectedItemColor: kColorScheme.onSecondaryFixedVariant,
-  // ),
 );
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,16 +29,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       theme: themeData,
       darkTheme: themeData,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (ctx, snapshot) {
-          return Container(
-            child: snapshot.hasData ? const HomeScreen() : const AuthScreen(),
-          );
-        },
-      ),
+      home: const AuthWrapper(),
     );
   }
 }

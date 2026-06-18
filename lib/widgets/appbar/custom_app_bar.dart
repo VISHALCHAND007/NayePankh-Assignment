@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../helpers/firestore_helper.dart';
+import '../../screens/auth_screen.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.title, required this.subTitle});
 
@@ -21,6 +24,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            FirestoreHelper.auth.signOut();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const AuthScreen()),
+            );
+          },
+          icon: const Icon(Icons.logout),
+        ),
+      ],
     );
   }
 

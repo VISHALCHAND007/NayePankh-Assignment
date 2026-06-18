@@ -69,6 +69,7 @@ class _AuthFormState extends State<AuthForm> {
                   children: [
                     TextFormField(
                       key: const ValueKey('email'),
+                      style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
                       keyboardType: .emailAddress,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email),
@@ -90,6 +91,7 @@ class _AuthFormState extends State<AuthForm> {
                       TextFormField(
                         key: const ValueKey('username'),
                         keyboardType: .text,
+                        style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.account_circle),
                           label: Text('Username'),
@@ -105,6 +107,7 @@ class _AuthFormState extends State<AuthForm> {
                     const SizedBox(height: 5),
                     TextFormField(
                       key: const ValueKey('password'),
+                      style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
                       keyboardType: .visiblePassword,
                       obscureText: !isPasswordVisible,
                       decoration: InputDecoration(
@@ -135,9 +138,6 @@ class _AuthFormState extends State<AuthForm> {
                     else
                     ElevatedButton(
                       onPressed: _saveForm,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colorScheme.primaryContainer,
-                      ),
                       child: Text(isLogin ? 'Login' : 'Signup'),
                     ),
                     TextButton(
