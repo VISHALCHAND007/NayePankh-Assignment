@@ -70,6 +70,7 @@ class _HomeTabState extends State<HomeTab> {
                 }
               }
               return ListView.builder(
+                key: const ValueKey('posts'),
                 scrollDirection: .vertical,
                 padding: const .all(10),
                 itemCount: snapshot.data?.length,

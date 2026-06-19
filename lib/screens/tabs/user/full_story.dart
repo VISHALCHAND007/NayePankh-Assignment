@@ -52,11 +52,14 @@ class FullStory extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: .start,
                   children: [
-                    Image.network(
-                      postModel.imageUrl,
-                      width: .infinity,
-                      height: 280,
-                      fit: .cover,
+                    Hero(
+                      tag: postModel.id,
+                      child: Image.network(
+                        postModel.imageUrl,
+                        width: .infinity,
+                        height: 280,
+                        fit: .cover,
+                      ),
                     ),
                     const SizedBox(height: 25),
                     Container(
