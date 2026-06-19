@@ -86,14 +86,3 @@ class _HomeTabState extends State<HomeTab> {
   }
 }
 
-// Expanded(
-// child: ListView.builder(
-// scrollDirection: .vertical,
-// padding: const .all(10),
-// itemCount: userPosts.length,
-// itemBuilder: (ctx, ind) => StoryItem(
-// postModel: userPosts[ind],
-// onLikeClicked: likePost,
-// ),
-// ),
-// )

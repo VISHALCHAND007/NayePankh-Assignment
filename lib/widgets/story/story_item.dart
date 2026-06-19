@@ -51,14 +51,11 @@ class StoryItem extends StatelessWidget {
                   topLeft: .circular(16),
                   topRight: .circular(16),
                 ),
-                child: Hero(
-                  tag: postModel.description,
-                  child: Image.network(
-                    postModel.imageUrl,
-                    width: .infinity,
-                    height: 180,
-                    fit: .cover,
-                  ),
+                child: Image.network(
+                  postModel.imageUrl,
+                  width: .infinity,
+                  height: 180,
+                  fit: .cover,
                 ),
               ),
               const SizedBox(height: 10),
